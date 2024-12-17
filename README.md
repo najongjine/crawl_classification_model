@@ -3,10 +3,10 @@
 웹크롤링을 이용하여 원하는 이미지를 수집하고 전처리 후 CNN 모델을 구성하여 훈련과정의 전체.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::
-1. 크롤링 작업
- Crawling/Craw_image_running :: main run\n
- Crawling/Craw_image_google :: import
- Crawling/Craw_image_naver :: import
+1. 크롤링 작업   
+ Crawling/Craw_image_running :: main run    
+ Crawling/Craw_image_google :: import   
+ Crawling/Craw_image_naver :: import    
     이미지 저장경로, 검색어, 영문검색어(공백없어야함)
     ::: 실습환경 ::: 
     크롬 드라이버 필요 (https://googlechromelabs.github.io/chrome-for-testing/)
