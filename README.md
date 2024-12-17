@@ -6,14 +6,14 @@
 1. 크롤링 작업   
  Crawling/Craw_image_running :: main run    
  Crawling/Craw_image_google :: import   
- Crawling/Craw_image_naver :: import    
-    이미지 저장경로, 검색어, 영문검색어(공백없어야함)
-    ::: 실습환경 ::: 
-    크롬 드라이버 필요 (https://googlechromelabs.github.io/chrome-for-testing/)
-      win64 v131.0.6788.108 
+ Crawling/Craw_image_naver :: import       
+    이미지 저장경로, 검색어, 영문검색어(공백없어야함)    
+    ::: 실습환경 :::     
+    크롬 드라이버 필요 (https://googlechromelabs.github.io/chrome-for-testing/) 
+      win64 v131.0.6788.108  
     크롬 웹브라우저 필요 
-      버전 131.0.6778.140(공식 빌드) (64비트)
-
+      버전 131.0.6778.140(공식 빌드) (64비트)   
+    
 2. 
  디렉터리 내의 폴더명은 정답으로 처리되며 각 관련 이미지가 내부에 존재 해야 한다.
 opencv01.py - def removeBackgroundFolder : 디렉터리 내의 모든 이미지 백그라운 제거 및 이미지 256*256 으로 리사이징
