@@ -11,7 +11,7 @@ import time
 from urllib import request,parse
 import uuid
 
-def get_google(search_datas,cnt_count):
+def get_google(search_datas,save_directory,cnt_count):
     for searchKeyword,keyword in search_datas:
        searchKeyword =searchKeyword .strip()
        keyword = keyword.strip()
@@ -58,9 +58,7 @@ def get_google(search_datas,cnt_count):
        for iurl in result_url:
            iurls.append(re.sub(pattern, r"\1", iurl.get_attribute("href")))
        #print(parse.unquote(iurls[0]))  %XX => url 문자를 일반 전환
-       save_path = f"d:\\imgs\\{keyword}\\"
-       if not os.path.exists(r"d:\imgs"):
-           os.mkdir(r"d:\imgs")
+       save_path = f"{save_directory}\\{keyword}\\"
        if not os.path.exists(save_path):
            os.mkdir(save_path)
        icount=0

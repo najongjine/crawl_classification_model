@@ -10,7 +10,7 @@ from urllib import parse
 import uuid
 import re
 
-def get_naver(search_datas,cnt_count):
+def get_naver(search_datas,save_directory,cnt_count):
    for searchKeyword,keyword in search_datas:
        searchKeyword = searchKeyword.strip()
        keyword = keyword.strip()
@@ -52,7 +52,6 @@ def get_naver(search_datas,cnt_count):
            #print(img_site.headers) 동일 이미지 색출할때
            contentLength=""
            try:
-               global contentLength
                contentLength =(
                        img_site.headers["Content-Length"] or img_site.headers["content-length"])
            except:
@@ -60,9 +59,7 @@ def get_naver(search_datas,cnt_count):
            if int(contentLength)<5100:
                continue
            simg = img_site.content
-           save_path = f"d:\\imgs\\{keyword}\\"
-           if not os.path.exists(r"d:\imgs"):
-               os.mkdir(r"d:\imgs")
+           save_path = f"{save_directory}\\{keyword}\\"
            if not os.path.exists(save_path):
                os.mkdir(save_path)
            expandfile = u.split(".")[-1]
