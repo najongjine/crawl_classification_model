@@ -49,13 +49,20 @@ for i in range(len(rindex)):
     plt.xticks([]);plt.yticks([])
 plt.show()
 #혼동행렬
-y_conv_true = np.array([np.argmax(ll) for ll in y_test])
-y_conv_pred = np.array([np.argmax(ll) for ll in y_pred])
+y_conv_true = np.array([label_list[np.argmax(ll)] for ll in y_test])
+y_conv_pred = np.array([label_list[np.argmax(ll)] for ll in y_pred])
 print(y_conv_true.shape)
 print(y_conv_pred.shape)
 print(y_conv_true[1:10])
 print(y_conv_pred[1:10])
 #confusion_matrix()
+print(len(label_list))
+print(label_list)
+cm = confusion_matrix(y_conv_true,y_conv_pred)
+print(cm)
+heatmap(cm,cmap="Blues",annot=True,fmt=".1f",xticklabels=label_list,yticklabels=label_list)
+plt.show()
+
 
 
 

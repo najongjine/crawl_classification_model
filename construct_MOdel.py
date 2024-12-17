@@ -45,20 +45,22 @@ print(y_train[0])
 model = Sequential()
 model.add(Input(shape=(64,64,3)))
 model.add(Conv2D(
-    filters=64,kernel_size=5,strides=1,padding="same",activation="relu"))
+    filters=64,kernel_size=5,strides=2,padding="same",activation="relu"))
 model.add(MaxPool2D(3,2,padding="same"))
-model.add(Dropout(0.3))
+model.add(Dropout(0.2))
 model.add(Conv2D(
     filters=128,kernel_size=5,strides=1,padding="same",activation="relu"))
 model.add(MaxPool2D(3,2,padding="same"))
 model.add(Dropout(0.3))
 model.add(Conv2D(
-    filters=256,kernel_size=5,strides=2,padding="same",activation="relu"))
+    filters=256,kernel_size=5,strides=1,padding="same",activation="relu"))
 model.add(MaxPool2D(3,2,padding="same"))
 model.add(Dropout(0.3))
 model.add(Flatten())
-model.add(Dropout(0.4))
+model.add(Dropout(0.3))
 model.add(Dense(256,activation="relu"))
+model.add(Dropout(0.3))
+model.add(Dense(128,activation="relu"))
 model.add(Dropout(0.4))
 model.add(Dense(32,activation="relu"))
 model.add(Dropout(0.3))
@@ -68,12 +70,12 @@ model.compile(loss="categorical_crossentropy",optimizer="adam",
               metrics=["acc"])
 cb = tf.keras.callbacks.EarlyStopping(
     monitor='val_acc',
-    patience=10,
+    patience=30,
     verbose=1,
     mode='auto',
     restore_best_weights=True,
 )
-fit_his = model.fit(x_train,y_train,epochs=100,validation_data=(x_test,y_test),
+fit_his = model.fit(x_train,y_train,epochs=200,validation_data=(x_test,y_test),
                     callbacks=[cb],batch_size=100)
 import pickle
 with open("classification_image.history","wb") as fp:
