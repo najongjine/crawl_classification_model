@@ -1,5 +1,7 @@
 describe - 웹크롤링을 이용하여 원하는 이미지를 수집하고 전처리 후 CNN 모델을 구성하여 훈련과정의 전체.
 
+
+
 d:\imgs 디렉터리 내의 폴더명은 정답으로 처리되며 각 관련 이미지가 내부에 존재 해야 한다.
 opencv01.py - def removeBackgroundFolder : 디렉터리 내의 모든 이미지 백그라운 제거 및 이미지 256*256 으로 리사이징
               def singleRemoveBackground : 단일 이미지에 대한 256*256 으로 리사이징
