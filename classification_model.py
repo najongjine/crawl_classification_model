@@ -37,7 +37,7 @@ def readImageDirect(rpath):
                 cnt+=1
             print(".", end="")
         print()
-def load_driectory(rootpath):#{label:[이미지 리스트]}
+def load_directory_sub(rootpath):#{label:[이미지 리스트]}
     f_lists = os.listdir(rootpath)
     print(f_lists)
     y_labels = []
@@ -55,7 +55,7 @@ def load_driectory(rootpath):#{label:[이미지 리스트]}
             x_files.append(fimg)
     return f_lists,np.array(y_labels),np.array(x_files)
 def getTrainData(dpath):
-    label_list, y_data, x_data = load_driectory(dpath)
+    label_list, y_data, x_data = load_directory_sub(dpath)
     print(y_data.shape)
     print(x_data.shape)
     print(len(label_list))
