@@ -4,7 +4,7 @@
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::
 1. 크롤링 작업
- Crawling/Craw_image_running :: main run
+ Crawling/Craw_image_running :: main run\n
  Crawling/Craw_image_google :: import
  Crawling/Craw_image_naver :: import
     이미지 저장경로, 검색어, 영문검색어(공백없어야함)
