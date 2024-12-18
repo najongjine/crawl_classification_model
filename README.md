@@ -20,7 +20,7 @@
 2. 데이터 증강 및 배경 제거   
  Preprocessing/preprocessing_running :: main run  
  Preprocessing/remove_background :: import  
- Preprocessing/util :: import 
+ Preprocessing/util :: import   
     이미지 배경 제거 및 회전, 밝기조정, 확대 기법으로 이미지 
     데이터 증강   
     ::: 실습환경 :::  
