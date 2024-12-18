@@ -1,9 +1,24 @@
 import tensorflow as tf
 import numpy as np
-import matplotlib.pyplot as plt
 import cv2 as cv
 import os
-from matplotlib.pyplot import imshow
+
+def getTrainData(dpath):
+    label_list, y_data, x_data = load_directory_sub(dpath)
+    # suffle
+    from sklearn.model_selection import train_test_split  # pycharm version 3.11
+    x_train, x_test, y_train, y_test = train_test_split(
+        x_data, y_data, test_size=0.2, random_state=10, stratify=y_data)
+    x_train = x_train/255.;x_test = x_test/255.
+    y_train = tf.one_hot(y_train,10)
+    y_test = tf.one_hot(y_test, 10)
+    print("훈련파일:",x_train.shape)
+    print("테스트파일:",x_test.shape)
+    print("훈련정답:",y_train.shape)
+    print("테스트정답:",y_test.shape)
+    print("훈련파일 80% 테스트 파일 20% 를 suffle 후 분할이 완료 되었습니다.")
+    return {"label_list":label_list,"train":(x_train,y_train),
+            "test":(x_test,y_test)}
 
 def imageAugment_sub(orimg): #이미지 증강
     rn = np.random.randint(2,6)
@@ -22,7 +37,8 @@ def imageAugment_sub(orimg): #이미지 증강
     pre_model=tf.keras.layers.RandomZoom((-0.15,0.15),(-0.15,0.15))
     testimge1 = pre_model(testimge1)
     return np.array(testimge1).astype(np.uint8)
-def readImageDirect(rpath):
+
+def readImageDirect(rpath,get_count):
     cnt = 0
     f_lists = os.listdir(rpath)
     for folder in f_lists:
@@ -31,12 +47,13 @@ def readImageDirect(rpath):
         for f_name in f_names:
             ori_img = cv.imread(rpath + "\\" + folder + "\\" + f_name)
             ori_img = cv.resize(ori_img, (256, 256))
-            for ix in range(5):
+            for ix in range(get_count):
                 arg_img = imageAugment_sub(ori_img)
                 cv.imwrite(rpath + "\\" + folder + "\\" + str(cnt)+f_name, arg_img)
                 cnt+=1
             print(".", end="")
         print()
+
 def load_directory_sub(rootpath):#{label:[이미지 리스트]}
     f_lists = os.listdir(rootpath)
     print(f_lists)
@@ -54,23 +71,6 @@ def load_directory_sub(rootpath):#{label:[이미지 리스트]}
             fimg = cv.resize(fimg,(64,64))
             x_files.append(fimg)
     return f_lists,np.array(y_labels),np.array(x_files)
-def getTrainData(dpath):
-    label_list, y_data, x_data = load_directory_sub(dpath)
-    print(y_data.shape)
-    print(x_data.shape)
-    print(len(label_list))
-    print(label_list[0])
-    # suffle
-    from sklearn.model_selection import train_test_split  # pycharm version 3.11
-    x_train, x_test, y_train, y_test = train_test_split(
-        x_data, y_data, test_size=0.2, random_state=10, stratify=y_data)
-    return {"label_list":label_list,"train":(x_train,y_train),
-            "test":(x_test,y_test)}
+
 if __name__=="__main__":
-    readImageDirect(r"D:\imgs")#데이터 증강 호출
-
-
-
-
-
-
+    print("preprocessing_running 파일을 실행하세요")

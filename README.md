@@ -3,6 +3,8 @@
 웹크롤링을 이용하여 원하는 이미지를 수집하고 전처리 후 CNN 모델을 구성하여 훈련과정의 전체.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+기본라이브러리 : numpy, matplotlib.pyplot, tensoflow, random, os
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 1. 크롤링 작업   
  Crawling/Craw_image_running :: main run    
  Crawling/Craw_image_google :: import   
@@ -14,27 +16,26 @@
     크롬 웹브라우저 필요 
       버전 131.0.6778.140(공식 빌드) (64비트)   
     
-2. 
- 디렉터리 내의 폴더명은 정답으로 처리되며 각 관련 이미지가 내부에 존재 해야 한다.
-opencv01.py - def removeBackgroundFolder : 디렉터리 내의 모든 이미지 백그라운 제거 및 이미지 256*256 으로 리사이징
-              def singleRemoveBackground : 단일 이미지에 대한 256*256 으로 리사이징              
-classification_model.py - def imageAugment_sub : 이미지를 회전,확대축소,밝기조정등으로 다양한 방법으로 이미지 증강
-                          def readImageDirect : 디렉터리 내의 이미지를 읽어서 증강함수(imageAugment_sub)를 호출하고,
-                                              이미지를 저장하는 함수
-                          def load_directory_sub : 증강된 이미지를 읽어서 64*64로 변환후 numpy 리스트로 변환후 
-                                                    정답리스트와,ylabel,xdata 리턴
-                          def getTrainData : load_directory_sub 함수를 호출하여 정답파일을 기준으로 훈련데이터(80%)와 
-                                            테스트데이터(20%)를 랜덤하게 분리
-construct_Model.py - 훈련데이터의 minmax 표준화와 정답데이터의 원핫인코딩을 수행하고 이미지와 정답파일의 매칭을 확인후
-                      Sequential 모델로 구성된 CNN을 구현하고 컴파일 과 훈련을 실행(조기종료 콜백함수 추가)
-                      훈련결과와 모델을 파일로 저장
-classification_analize.py - 테스트데이터와 테스트정답파일을 로딩한 후 훈련이 완료된 모델과 훈련결과를 로딩하여 
-                            훈련/검증 데이터의 정확도와 훈련/검증 데이터의 손실도를 그래프로 시각화
-                            훈련모델의 예측값을 출력하여 실제 정답과 이미지와 예측 정답을 시각화 표현
-                            혼동 행렬을 이용한 히트맵 시각화
-                            리포팅 요약 이용한 f2 score 등을 분석
-                      
-                          
-                          
-                          
-              
+2. 데이터 증강 및 배경 제거
+ Preprocessing/preprocessing_running :: main run
+ Preprocessing/remove_background :: import
+ Preprocessing/util :: import
+    이미지 배경 제거 및 회전, 밝기조정, 확대 기법으로 이미지
+    데이터 증강
+    ::: 실습환경 :::
+    tf.image.random_brightness
+    tf.keras.layers.RandomRotation
+    tf.keras.layers.RandomFlip
+    tf.keras.layers.RandomZoom
+    rembg.remove
+
+3. 데이터 전처리 및 훈련 실행, 평가
+ Trainning/train_fit :: main run
+ Trainning/construct_Model :: import
+    이미지 전처리 및 훈련실행과 훈련결과 평가
+    훈련 실행시 최적값으로 조기종료 콜백 등록됨
+    :: 실습환경 :::
+    Sequential,Input,Dense,Conv2D,Dropout,MaxPool2D,Flatten
+    confusion_matrix,classfication_report,heatmap
+* error 처리는 수행하지 않음.
+copy right - 2024.12.18 광주컴퓨터기술학원 (dmsgur)
