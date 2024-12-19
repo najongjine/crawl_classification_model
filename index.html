@@ -13,9 +13,12 @@
       border:2px solid gray;border-style:ridge;box-shadow:2px 2px 2px 2px black;
       display:none}
       .content{margin:0.5vw;
-        float:left;width:25vh;height:25vh;border:1px solid gray;
+        float:left;width:10vw;
+        height:15vw;border:1px solid gray;
         opacity:0.7;border-radius:5px
       }
+      .top-cont{height:80%;background:gray}
+      .bottom-cont{height:20%;background:red}
     </style>
     <script>
       $(()=>{
@@ -24,6 +27,24 @@
         })
         $("#view_menu").on("mouseout",()=>{
           $("#view_menu").css("display","none")
+        })
+        let inHtml = ""
+        for (let i=0;i<12;i++){
+          inHtml+=`
+            <div class="content">
+            <div class="top-cont"></div>
+            <div class="bottom-cont"></div>
+            </div>
+          `        }
+        $("#container").html(inHtml)
+        $(".top-cont").click(function(){
+          //$(this)
+          $("#cover").css("display","block")
+          $("#display").css("display","block")
+        })
+        $("#cover").click(function(){
+          $(this).css("display","none")
+          $("#display").css("display","none")
         })
       })
     </script>
@@ -41,20 +62,7 @@
       </a>
     </p>
     <div id="container">
-      <div class="content">1</div>
-      <div class="content">2</div>
-      <div class="content">3</div>
-      <div class="content">4</div>
-      <div class="content">5</div>
-      <div class="content">6</div>
-      <div class="content">7</div>
-      <div class="content">8</div>
-      <div class="content">9</div>
-      <div class="content">10</div>
-      <div class="content">11</div>
-      <div class="content">12</div>
-      <div class="content">13</div>
-      <div class="content">14</div>
+
     </div>
     <hr style="margin:0.7vw 1vw">
     <footer style="text-align:center">
@@ -62,6 +70,20 @@
       <span style="color:blue">author : dmsgur</span>
       <span style="color:darkgray"> since : 2024-10-01 ~ </span>
     </footer>
+    <div id="cover"></div>
+    <div id="display">
+      <h3 id="sub_title" style="text-align:center;margin:0.8vh 0">모델 구성</h3>
+      <hr style="margin:0 10%;border:2px solid gray;margin-bottom:1vh">
+      <p id="sub_content" style="height:3vh">전처리 기능으로  이미지 표준화</p>
+      <p id="sub_img" >이미지들</p>
+      <p id="user_fill" style="height:3vh;position:relative;top:58vh">의견 : min-max 표준화를 실행하기 위해<br>
+        색상의 최대크기가 255인걸 감안하여 /255. 으로 나눔</p>
+    </div>
   </body>
-  
+  <style>
+    #cover{display:none;z-index:99;margin-left:0.6vw;width:99vw;height:99vh;
+      background:yellow;opacity:0.3;position:absolute;top:0;left:0}
+    #display{display:none;z-index:100;padding:1vh;width:90vw;height:79vh;top:10vh;
+      left:5vw;position:absolute;background:white;border-radius:1vw}
+  </style>
 </html>
