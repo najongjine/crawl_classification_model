@@ -13,6 +13,7 @@ rootpath = "\\".join(path_list)
 with open(f"{rootpath}\\config","rb") as fp:
     label_list  = pickle.load(fp)
 print("라벨리스트확인:",label_list)
+
 sample_data = input("라벨리스트가 불러와 졌는지 확인후 \n"
                     "샘플데이터의 파일 경로와 파일명을 지정해주세요\n")
 origin_img = cv.imread(sample_data,cv.COLOR_BGR2RGB)
