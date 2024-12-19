@@ -44,11 +44,11 @@
     인터넷등에서 가져온 이미지 파일을 모델이 측정 
     ::: 준비물 :::
     단일 이미지
-
-* 순서대로 실행시 생성되는 파일 리스트
-* Trainning/classification_image.keras (저장모델)
-* classication_image.history (훈련결과 손실수치)
-* config (영문 라벨 리스트)
-* error 처리는 수행하지 않음.  
-* 원본이미지 60*10 여개 , 증강이미지 60*5 여개  
+  
+* 순서대로 실행시 생성되는 파일 리스트  
+* Trainning/classification_image.keras (저장모델)  
+* classication_image.history (훈련결과 손실수치)  
+* config (영문 라벨 리스트)  
+* error 처리는 수행하지 않음.    
+* 원본이미지 60*10 여개 , 증강이미지 60*5 여개    
 copy right - 2024.12.18 광주컴퓨터기술학원 (dmsgur) 
