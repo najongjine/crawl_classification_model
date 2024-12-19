@@ -1,3 +1,5 @@
+import pickle
+
 import tensorflow as tf
 import numpy as np
 import cv2 as cv
@@ -19,6 +21,12 @@ def getTrainData(dpath):
     print("훈련파일 80% 테스트 파일 20% 를 suffle 후 분할이 완료 되었습니다.")
     return {"label_list":label_list,"train":(x_train,y_train),
             "test":(x_test,y_test)}
+
+def getPred_Preprocess(target_img):#샘플데이터 전처리
+    target_img = cv.cvtColor(target_img, cv.COLOR_BGR2RGB)
+    target_img = cv.resize(target_img, (64, 64))
+    target_img = target_img/255.
+    return target_img
 
 def imageAugment_sub(orimg): #이미지 증강
     rn = np.random.randint(2,6)
@@ -71,6 +79,9 @@ def load_directory_sub(rootpath):#{label:[이미지 리스트]}
             fimg = cv.resize(fimg,(64,64))
             x_files.append(fimg)
     return f_lists,np.array(y_labels),np.array(x_files)
+def saveConfig(label_list,rootpath):#레이블 리스트 저장
+    with open(f"{rootpath}\\config","wb") as fp:
+        pickle.dump(label_list,fp)
 
 if __name__=="__main__":
     print("preprocessing_running 파일을 실행하세요")

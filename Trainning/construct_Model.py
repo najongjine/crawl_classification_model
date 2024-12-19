@@ -2,15 +2,20 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 import random
+import os
 from tensorflow.keras import Sequential,Input
 from tensorflow.keras.layers import Dense,Conv2D,Dropout,MaxPool2D,Flatten
 from seaborn import heatmap
 from sklearn.metrics import confusion_matrix,classification_report
-
+from Preprocessing.util import saveConfig
 # image confirm
 def train_fit_run(train_count,label_list,x_train,y_train,x_test,y_test):
     rlist = [ random.randint(0,len(x_train)) for i in range(10)]
     print(rlist)
+    curpath = os.path.dirname(os.path.abspath(__file__))  # 프로젝트 루트 경로 페치
+    path_list = curpath.split("\\")[:-1]
+    rootpath = "\\".join(path_list)
+    saveConfig(label_list,rootpath)
     for ix,xnum in enumerate(rlist):
         plt.subplot(2,5,ix+1)
         plt.imshow(x_train[ix])

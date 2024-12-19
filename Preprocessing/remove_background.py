@@ -27,8 +27,9 @@ def singleRemoveBackground(imagePathName):
     ori_img = cv.resize(ori_img, (256, 256))
     # cv.imshow("ori "+f_name,ori_img)
     rmbg_img = remove(ori_img)
-    cv.imwrite(imagePathName,rmbg_img)
+    #cv.imwrite(imagePathName,rmbg_img)
     print("배경이미지 제거가 완료 되었습니다.")
+    return rmbg_img
 if __name__=="__main__":
     print("preprocessing_running 파일을 실행하세요")
 else:
