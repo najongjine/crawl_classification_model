@@ -1,5 +1,7 @@
 //데이터 17KPamLcwRpk7yZVpjMqqaumfIBL-8R8k
 data_sets = []
+
+//메뉴 생성기 종료 E==============================
 //데이터 아키텍처{sub_title:"",sub_content:"",sub_img:[],user_fill:""}
 data_sets.push({sub_title:"이미지 크롤링",
   sub_content:"구글 사이트 및 네이버 사이트를 이동하면서 해당 검색어의 이미지를 자동 수집",

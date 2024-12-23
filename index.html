@@ -5,16 +5,18 @@
     <title>분류모델</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="common_menu.js"></script>
     <script src="dataset.js"></script>
     <style>
       *{margin:0;padding:0}
       #container{height:75vh;width:99vw}
       #mainmenu:hover{cursor:pointer}
-      #view_menu{width:35vw;height:40vw;position:absolute;left:0.5vw;top:0.5vw;
-      border:2px solid gray;border-style:ridge;box-shadow:2px 2px 2px 2px black;
-      display:none}
+      #view_menu{z-index:133;width:30vw;min-width:20rem;height:98vh;position:fixed;
+      left:-30vw;top:0.5vw;border:2px solid gray;border-style:ridge;
+      box-shadow:2px 2px 2px 2px black;border-top-right-radius:2vw;
+      border-bottom-right-radius:2vw;text-align:center;font-size:1.2vw}
       .content{margin:0.5vw;
-        float:left;width:10vw;
+        float:left;width:18.5vw;
         height:15vw;border:1px solid gray;
         opacity:0.9;border-radius:5px
       }
@@ -22,20 +24,31 @@
       .top-cont img{width:100%;height:100%}
       .bottom-cont{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
       text-align:center;font-size:1vw;height:20%;line-height:300%}
-      .top-cont img:hover{position:relative;width:130%;height:130%}
-      #sub_img img{margin:0.5vw}
+      .top-cont img:hover{position:relative;width:117%;height:117%}
+      #sub_img img{margin:0.5vw;width:100%;height:100%}
       #sub_img img:hover{z-index:111;
-        position:absolute;width:80%;height:70%;left:2vw;top:10vw
+        position:absolute;max-width:90%;max-height:80%;left:2vw;top:3vw
       }
       #display_closer:hover{color:red}
+      a{color:blue;text-decoration:none}
     </style>
     <script>
       $(()=>{
+        for (mobj of menu_sets){
+          $("#view_menu").append(`<p style="margin-top:2.5vw"><a class='menus' href="${mobj.url}"> ${mobj.mtitle} </a></p>`)
+        }
         $("#mainmenu").click(()=>{
-          $("#view_menu").css("display","block")
+         $("#view_menu").animate({left:"0.2vw"},500)
         })
-        $("#view_menu").on("mouseout",()=>{
-          $("#view_menu").css("display","none")
+        $("#view_menu").on("mouseenter",function(){
+          $(this).animate({left:"0.2vw"},500,function(){
+            $("#cover").css("display","block")
+          });
+        })
+        $("#menu_closer").click(function(){
+           $("#view_menu").animate({left:"-29.7vw"},500,function(){
+            $("#cover").css("display","none")
+           });
         })
         let inHtml = ""
         for (let i=0;i<data_sets.length;i++){
@@ -51,10 +64,8 @@
           let ix = parseInt($(this).attr("num"))
           $("#sub_title").text(data_sets[ix].sub_title)
           $("#sub_content").text(data_sets[ix].sub_content)
-          let image_wsize =
-            data_sets[ix].sub_img.length>5?parseInt(98/data_sets[ix].sub_img.length):19
-          let image_hsize =
-            data_sets[ix].sub_img.length>5?130:280
+          let image_wsize =19
+          let image_hsize =data_sets[ix].sub_img.length>5?30:40
           for(url of data_sets[ix].sub_img){
             $("#sub_img").append(createImageUrl(url,3000,image_wsize,image_hsize))
           }
@@ -68,7 +79,9 @@
           $("#sub_img").html("")
           $(this).css("display","none")
           $("#display").css("display","none")
-          $("#display_closer").css("display","none")})
+          $("#display_closer").css("display","none")
+          $("#menu_closer").trigger("click")
+         })
          $("#display_closer").click(()=>{
             $("#cover").trigger("click")
          })
@@ -78,8 +91,11 @@
   <body>
     <span id="mainmenu" style="z-index:3;top:1vw;left:0.5vw;font-size:4vw;color:white;position:absolute"
         class="material-symbols-outlined">menu</span>
-    <div id="view_menu" style="background:red">
-
+    <div id="view_menu" style="background:AliceBlue ">
+      <span id="menu_closer" class="material-symbols-outlined" style="position:absolute;
+        top:0.4vw;left:27vw;font-size:2.5vw;z-index:456;cursor:pointer">
+        close
+      </span>
     </div>
     <h2 style="font-size:3vw;padding:1vw 0;text-align:center;background:black;color:white"> 이미지 컨볼루션 분류 모델 CNN </h2>
     <p style="text-align:right;margin-right:3vw;margin-bottom:0.8vw">
@@ -101,27 +117,27 @@
       <h2 id="sub_title" style="text-align:center;margin:0.8vh 0"></h2>
       <hr style="margin:0 10%;border:2px solid gray;margin-bottom:1vh">
       <p id="sub_content" style="height:3vh;color:blue"></p>
-      <p id="sub_img" ></p>
+      <div id="sub_img" ></div>
       <p id="user_fill" style="height:3vh;position:absolute;bottom:6vh">
         </p>
       <p id="asso_file" style="height:3vh;position:absolute;bottom:0.5vh"></p>
     </div>
     <span id="display_closer" class="material-symbols-outlined" style="position:absolute;
-      top:5vw;right:4vw;font-size:2.5vw;z-index:123;cursor:pointer;display:none">
+      top:7vw;right:4vw;font-size:2.5vw;z-index:123;cursor:pointer;display:none">
       close
     </span>
 
   </body>
   <style>
     #cover{display:none;z-index:99;margin-left:0.6vw;width:99vw;height:99vh;
-      background:yellow;opacity:0.8;position:absolute;top:0;left:0}
+      background:GhostWhite ;opacity:0.7;position:absolute;top:0;left:0}
     #display{display:none;z-index:100;padding:1vh;width:90vw;height:79vh;top:10vh;
       left:5vw;position:absolute;background:white;border-radius:1vw}
   </style>
   <script>
 
     function createImageUrl(thumbnail_id,w=500,width,height){
-      return `<img src="https://drive.google.com/thumbnail?id=${thumbnail_id}&sz=w${w}" ${width?("width="+width+"%"):""} ${height?("height="+height+"vh"):""}>`
+      return `<p style="float:left;margin-left:0.1vw;${width?("width:"+width+"%;"):"width:100%;"} ${height?("height:"+height+"vh"):"height:100%"}"><img src="https://drive.google.com/thumbnail?id=${thumbnail_id}&sz=w${w}" ></p>`
     }
     function imagePlace(){
       createImageUrl($("#thum1"),"17KPamLcwRpk7yZVpjMqqaumfIBL-8R8k")
