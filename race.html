@@ -42,8 +42,9 @@
 </html>
 <script>
     let backbtn = document.getElementById("backbtn")
-    backbtn.addEventListener(function(){
+    backbtn.addEventListener("click",function(e){
         history.back()
+        return false;
     })
     tuttle_img_id = "1_dOb29iZ8IqdGY1Si8Zgq_75s9iBNrlk"
     rabbit_img_id = "1V7RNGluG89IxAU9oiR2tSJMRpDZUAnih"
