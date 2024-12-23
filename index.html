@@ -31,7 +31,7 @@
       }
       #display_closer:hover{color:red}
       a{color:blue;text-decoration:none}
-      #tips{padding-left:1vw;font-size:1vw;color:DarkMagenta;position:absolute;bottom:3vw}
+      #ttips{padding-left:1vw;font-size:1vw;color:DarkMagenta;position:absolute;bottom:3vw}
     </style>
     <script>
       $(()=>{
@@ -39,7 +39,7 @@
           let ele = $(`<p style="margin-top:2.5vw" ix=${i}><a class='menus' href="${menu_sets[i].url}"> ${menu_sets[i].mtitle} </a></p>`)
           $("#menubar").append(ele)
           ele.on("mouseover",function(){
-            $("#tips").text(menu_sets[i].tips)
+            $("#ttips").text(menu_sets[i].tips)
           })
         }
         $("#mainmenu").click(()=>{
@@ -102,7 +102,7 @@
         close
       </span>
       <div id="menubar"></div>
-      <div id="tips"></div>
+      <div id="ttips"></div>
     </div>
     <h2 style="font-size:3vw;padding:1vw 0;text-align:center;background:black;color:white"> 이미지 컨볼루션 분류 모델 CNN </h2>
     <p style="text-align:right;margin-right:3vw;margin-bottom:0.8vw">
