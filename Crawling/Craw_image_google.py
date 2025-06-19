@@ -16,12 +16,14 @@ def get_google(search_datas,save_directory,cnt_count):
        searchKeyword =searchKeyword .strip()
        keyword = keyword.strip()
        time.sleep(5)
+       """구글 이미지 검색창 열기"""
        driver = webdriver.Chrome()
        driver.get("https://images.google.com/?hl=ko")
        f_ele = driver.find_element(By.CSS_SELECTOR,"[title=검색]")
        #print(f_ele.tag_name)
        f_ele.send_keys(searchKeyword)
        f_ele.send_keys(Keys.ENTER)
+       """구글 이미지 검색창 열기 END"""
        driver.implicitly_wait(1)
        #구글 이미지는 마우스 오버링 후에 주소가 생성된다.
        # 전체 페이지 로딩
@@ -29,6 +31,8 @@ def get_google(search_datas,save_directory,cnt_count):
        driver.fullscreen_window()
        sfooter = driver.find_element(By.CSS_SELECTOR,"#sfooter");
        cnt=0
+
+       """이미지 많이 불러오기 (스크롤 내리기)"""
        for i in range(100):
            cnt += 50
            if cnt >= cnt_count:
@@ -37,9 +41,12 @@ def get_google(search_datas,save_directory,cnt_count):
            time.sleep(2)
            if not "none" in sfooter.get_attribute("style"):
                break
+           """이미지 많이 불러오기 (스크롤 내리기) END"""
        over_tar = driver.find_elements(By.CSS_SELECTOR,f"[data-q={searchKeyword}] g-img")
        # print(len(over_tar))
        cnt=0
+
+       """마우스 오버해서 이미지 주소 생성 유도"""
        for target in over_tar:
            if int(cnt*0.5) > cnt_count:
                break
@@ -47,14 +54,22 @@ def get_google(search_datas,save_directory,cnt_count):
            ActionChains(driver).move_to_element(target).perform()
            print(".",end="")
            time.sleep(0.3)
+           """마우스 오버해서 이미지 주소 생성 유도 END"""
        #a href="/imgres?q=
        print()
+
+       """이미지 주소 수집"""
        result_url = (
            driver.find_elements(By.CSS_SELECTOR,\
                                 f"[data-q={searchKeyword}] a[href*=imgres]"))
+       """이미지 주소 수집 END"""
        import re
+
+       """주소에서 진짜 이미지 링크 추출"""
        pattern = r".*imgurl=(.*)&imgrefurl.*"
        iurls=[]
+       """주소에서 진짜 이미지 링크 추출 END"""
+
        for iurl in result_url:
            iurls.append(re.sub(pattern, r"\1", iurl.get_attribute("href")))
        #print(parse.unquote(iurls[0]))  %XX => url 문자를 일반 전환
@@ -70,6 +85,7 @@ def get_google(search_datas,save_directory,cnt_count):
                expandfile = img_url.split(".")[-1]
                ru = "g"+str(uuid.uuid4())
                file_path=ru+"."+expandfile
+               """이미지 다운로드 및 저장"""
                datafile = requests.get(img_url)
                time.sleep(0.7)
                #print((datafile.headers["content-length"])) 파일 용량 byte
@@ -79,6 +95,7 @@ def get_google(search_datas,save_directory,cnt_count):
                with open(save_path+file_path,"wb") as fp:
                    fp.write(datafile.content)
                    icount+=1
+                   """이미지 다운로드 및 저장 END"""
                if icount>=cnt_count:
                    break
            except:
